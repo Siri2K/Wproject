@@ -4,11 +4,13 @@
   - Bootstrap CSS
  
 ## Backend
-  - JSP
-  - Servlet
+  - Java
   
 ## Database
   - MySQL
+
+## Server & API
+  - Apache
 
 # Features
   - User Authentication
