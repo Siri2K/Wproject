@@ -1,7 +1,6 @@
 # Languages and Techniques
 ## Front-End
-  - HTML
-  - Bootstrap CSS
+  - JSP
  
 ## Backend
   - Java
