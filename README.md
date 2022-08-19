@@ -4,11 +4,9 @@
  
 ## Backend
   - Java
-  - JSP
   
 ## Database
   - MySQL
-
 
 # Features
   - User Registration & Authentication
