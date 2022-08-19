@@ -5,14 +5,12 @@
  
 ## Backend
   - Java
+  - JSP
   
 ## Database
   - MySQL
 
-## Server & API
-  - Apache
 
 # Features
-  - User Authentication
-  - Product view and Purchase 
-  
+  - User Registration & Authentication
+  - Product v=View and Purchase 
