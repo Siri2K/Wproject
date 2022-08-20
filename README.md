@@ -12,4 +12,4 @@
 
 # Features
   - User Registration & Authentication
-  - Product v=View and Purchase 
+  - Product View and Purchase 
