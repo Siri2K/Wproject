@@ -1,7 +1,7 @@
 <%-- Setup Expanded Navigation Bar --%>>
 <nav class = "navbar navbar-expand-lg bg-light">
 	<div class = "container-fluid">
-		<a class = "navbar-brand" href = "index.jsp">JStore</a>
+		<a class = "navbar-brand" href = "index.jsp">Shop</a>
 		
 		<%-- Setup Toggle Button --%>>
 		<button class = "navbar-toggler" type = "button" data-bs-toggle = "collapse" data-bs-target = "#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
@@ -32,7 +32,7 @@
 				</li>
 				
 				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "#">Login</a>
+					<a class = "nav-link" aria-current = "page" href = "login.jsp">Login</a>
 				</li>
 			</ul>
 		</div>	

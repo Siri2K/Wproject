@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>JShop</title>
+	<title>Welcome to Shop</title>
 	<%@include file = "includes/header.jsp" %>
 </head>
 
