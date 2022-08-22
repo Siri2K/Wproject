@@ -21,19 +21,30 @@
 					<a class = "nav-link" aria-current = "page" href = "#">Cart</a>
 				</li>
 				
-				<%-- Order Button --%>
-				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "#">Order</a>
-				</li>
+				<%-- Setup Authorized User Buttons --%>
+				<% 
+				if(auth != null) 
+				{%>
+					<%-- Order Button --%>
+					<li class = "nav-item">
+						<a class = "nav-link" aria-current = "page" href = "#">Order</a>
+					</li>
+					
+					<%-- Logout Button --%>
+					<li class = "nav-item">
+						<a class = "nav-link" aria-current = "page" href = "log-out">Logout</a>
+					</li>
+					
+				<%}
+				else
+				{%>
+					<%-- Login Button --%>
+					<li class = "nav-item">
+						<a class = "nav-link" aria-current = "page" href = "login.jsp">Login</a>
+					</li>
+				<% }
+				%>
 				
-				<%-- Login &Logout Button --%>
-				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "log-out">Logout</a>
-				</li>
-				
-				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "login.jsp">Login</a>
-				</li>
 			</ul>
 		</div>	
 	</div>
