@@ -28,7 +28,7 @@
 				
 				<%-- Login &Logout Button --%>
 				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "#">Logout</a>
+					<a class = "nav-link" aria-current = "page" href = "log-out">Logout</a>
 				</li>
 				
 				<li class = "nav-item">
