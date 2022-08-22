@@ -6,6 +6,7 @@
  
 ## Backend
   - Java
+  - Servlet
   
 ## Database
   - MySQL
