@@ -19,7 +19,7 @@
 			
 			<%-- Setup Card Body --%>
 			<div class = "card-body">
-				<form action = "" method = "post">
+				<form action = "user-login" method = "post">
 					<%-- Ask for user Email --%>
 					<div class = "form-group">
 					<label> Email Address </label>
