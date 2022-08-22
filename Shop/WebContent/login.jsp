@@ -10,6 +10,8 @@
 
 <body>
 	<%-- Setup Login Form --%>
+	<%@include file = "includes/navbar.jsp" %>
+	
 	<div class = "container">
 		<div class = "card w-50 mx-auto my-5">
 			<%-- Setup Card Header --%>
@@ -31,7 +33,7 @@
 					</div>
 					
 					<%-- Put Login Button --%>
-					<div class = "text-center">
+					<div class = "text-center my-5">
 					<button type = "submit" class = "btn btn-primary">Login</button>
 					</div>
 					
@@ -42,7 +44,7 @@
 		</div>
 	</div>
 
-	<%@include file = "includes/navbar.jsp" %>
+	
 	<%@include file = "includes/footer.jsp" %>
 </body>
 </html>
