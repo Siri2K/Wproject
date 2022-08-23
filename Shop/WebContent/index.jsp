@@ -1,17 +1,27 @@
-<%-- Setup Pages Imports --%>
+<%-- Setup Java Imports --%>
+<%@ page import =  "java.util.List"%>
+
+<%-- Setup shop Imports --%>
 <%@ page import = "shop.connection.DbConnection" %>
-<%@ page import = "shop.model.User" %>
+<%@ page import = "shop.model.*" %>
+<%@ page import = "shop.dao.*" %>
+
+<%-- Setup Page  --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<%-- Setup auth variable --%>
 <% 
+	// Setup User
 	User auth = (User)request.getSession().getAttribute("auth");
-	
-	// Check auth
 	if(auth != null)
 	{
 		request.setAttribute("auth", auth);
 	}
+	
+	// Setup Products
+	ProductDao product_dao = new ProductDao(DbConnection.getConnection());
+	List<Product> products = product_dao.getAllProduct();
+	
+	
 %>
 
 <!DOCTYPE html>
@@ -31,23 +41,37 @@
 		<%-- Card Header --%>
 		<div class = "card-header my-3"> All Product </div>
 		<div class = "row">
-			<div class = "col-md-3">
-				<div class = "card w-100" style="width: 18rem;">
-					<img class = "card-img-top" src = "product-image/female-shoes.jpg" alt = "Card image cap">
-					
-					<%-- Card Body --%>
-					<div class = "card-body">
-						<h5 class = "card-title">Card Title</h5>
-						<h6 class = "price">Price : $450</h6>
-						<h6 class = "category">Category : some category</h6>
-						
-						<div class = "mt-3 d-flex justify-content-between">
-							<a href = "#" class = "btn btn-primary"> Add to cart</a>
-							<a href = "#" class = "btn btn-primary"> Buy now</a>
-						</div>
+			
+			<%
+				if(!products.isEmpty())
+				{
+					for(Product p:products)
+					{%>
+						<div class = "col-md-3 my-3">
+						<div class = "card w-100" style="width: 18rem;">
+							<img class = "card-img-top" src = "product-image/<%= p.getImage() %>" alt = "Card image cap">
+							
+							<%-- Card Body --%>
+							<div class = "card-body">
+								<h5 class = "card-title"><%=p.getName() %></h5>
+								<h6 class = "price">Price :  $<%= p.getPrice() %></h6>
+								<h6 class = "category">Category : <%= p.getCategory() %></h6>
+								
+								<div class = "mt-3 d-flex justify-content-between">
+									<a href = "#" class = "btn btn-primary"> Add to cart</a>
+									<a href = "#" class = "btn btn-primary"> Buy now</a>
+								</div>
+							</div>
+						</div>	
 					</div>
-				</div>
-			</div>
+					<%}
+				}
+				else
+				{
+					System.out.println("There is no product");
+				}
+			%>	
+			
 		</div>
 		
 	</div>
