@@ -32,11 +32,12 @@ public class ProductDao
 	// Get All Products from database
 	public List<Product> getAllProduct() 
 	{
-		List<Product> product_list = new ArrayList<Product>();
+		List<Product> product_list = new ArrayList<>();
 		
 		try 
 		{
-			prepared_statement = this.connect.prepareStatement(this.query);
+			query = "select * from product";
+			prepared_statement = this.connect.prepareStatement(query);
 			result_set = prepared_statement.executeQuery();
 			
 			// Check for new products
@@ -47,7 +48,7 @@ public class ProductDao
 				product_row.setName(result_set.getString("name"));
 				product_row.setCategory(result_set.getString("category"));
 				product_row.setPrice(result_set.getString("price"));
-				product_row.setImage(result_set.getString(query));
+				product_row.setImage(result_set.getString("image"));
 				
 				// Add Product Data to List
 				product_list.add(product_row);
@@ -56,8 +57,10 @@ public class ProductDao
 		catch(Exception e) 
 		{
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-		return null;
+		
+		return product_list;
 	}
 
 }
