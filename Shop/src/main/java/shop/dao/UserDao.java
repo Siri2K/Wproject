@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 // Setup Shop Imports
 import shop.model.User;
 
-
-
 public class UserDao 
 {
 	// Setup Instances
@@ -45,7 +43,7 @@ public class UserDao
 			if(result_set.next()) 
 			{
 				user = new User();
-				user.setID(result_set.getInt("id"));
+				user.setID(result_set.getInt("ID"));
 				user.setName(result_set.getString("name"));
 				user.setEmail(result_set.getString("email"));
 			}
