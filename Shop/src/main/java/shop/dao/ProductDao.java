@@ -10,8 +10,10 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
 
+
 //Setup Shop Imports
 import shop.model.Product;
+import shop.model.Cart;
 
 
 public class ProductDao 
@@ -47,7 +49,7 @@ public class ProductDao
 				product_row.setID(result_set.getInt("ID"));
 				product_row.setName(result_set.getString("name"));
 				product_row.setCategory(result_set.getString("category"));
-				product_row.setPrice(result_set.getString("price"));
+				product_row.setPrice(result_set.getDouble("price"));
 				product_row.setImage(result_set.getString("image"));
 				
 				// Add Product Data to List
@@ -61,6 +63,43 @@ public class ProductDao
 		}
 		
 		return product_list;
+	}
+	
+	public List<Cart>getCartProduct(ArrayList<Cart> cartList)
+	{
+		List<Cart> products = new ArrayList<Cart>();
+		
+		try 
+		{
+			if(cartList.size()>0) 
+			{
+				for(Cart item:cartList) 
+				{
+					query = "select * from product where ID=?";
+					prepared_statement = this.connect.prepareStatement(query);
+					prepared_statement.setInt(1, item.getID());
+					result_set = prepared_statement.executeQuery();
+					
+					while(result_set.next()) 
+					{
+						Cart cart = new Cart();
+						cart.setID(result_set.getInt("ID"));
+						cart.setName(result_set.getString("name"));
+						cart.setCategory(result_set.getString("category"));
+						cart.setPrice(result_set.getDouble("price")*item.getQuantity());
+						cart.setQuantity(item.getQuantity());
+						products.add(cart);
+					}
+				}
+				
+			}
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return products;
 	}
 
 }

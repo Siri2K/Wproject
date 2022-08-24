@@ -1,4 +1,8 @@
-<%-- Setup Page Imports --%>
+<%-- Setup Page Imports from Java --%>
+<%@ page import= "java.util.ArrayList" %>
+<%@ page import= "java.util.List" %>
+
+<%-- Setup Page Imports from Shop --%>
 <%@ page import = "shop.connection.DbConnection" %>
 <%@ page import = "shop.model.*" %>
 <%@ page import = "shop.dao.*" %>
@@ -11,6 +15,17 @@
 	if(auth != null)
 	{
 		request.setAttribute("auth", auth);
+	}
+	
+	// Get CartList from Session List
+	ArrayList<Cart> cartlist = (ArrayList<Cart>) session.getAttribute("cart-list");
+	List<Cart> cartProduct = null;
+	
+	if(cartlist !=null)
+	{
+		ProductDao product_dao = new ProductDao(DbConnection.getConnection());
+		cartProduct = product_dao.getCartProduct(cartlist);
+		request.setAttribute("cart_list",cartlist);
 	}
 %>
 
@@ -61,35 +76,42 @@
 				</thead>
 				
 				<tbody>
-					<tr>
-						<td>Pink Shoes</td>
-						<td>Women Shoes</td>
-						<td>$119.99</td>
-						
-						<%-- Setup Buttons --%>
-						<td>
-							<form action = "" method = "post" class = "form-inline">
-								<input type = "hidden" name = "id" value = "1" class = "form-input">
-							</form>
+					<% if(cartlist != null)
+					   {
+						for(Cart c:cartProduct)
+						{%>
+							<tr>
+							<td><%= c.getName() %></td>
+							<td><%= c.getCategory() %></td>
+							<td><%= c.getPrice() %></td>
 							
-							<div class = "form-group d-flex justify-content-between">
-								<a class = "btn btn-sm btn-decre" href = "">
-									<i class = "fas fa-minus-square"></i>
-								</a>
+							<%-- Setup Buttons --%>
+							<td>
+								<form action = "" method = "post" class = "form-inline">
+									<input type = "hidden" name = "id" value = "<%= c.getID() %>" class = "form-input">
+								</form>
 								
-								<input type="text" name="quantity" class="form-control" value="1" readonly>
-								
-								<a class = "btn btn-sm btn-incre" href = "#">
-									<i class = "fas fa-plus-square"></i>
-								</a>
-							</div>
-						</td>
-						
-						<td>
-							<a class = "btn btn-small btn-danger" href = "#">Remove</a>
-						</td>
-						
-					</tr>
+								<div class = "form-group d-flex justify-content-between">
+									<a class = "btn btn-sm btn-decre" href = "">
+										<i class = "fas fa-minus-square"></i>
+									</a>
+									
+									<input type="text" name="quantity" class="form-control" value="1" readonly>
+									
+									<a class = "btn btn-sm btn-incre" href = "#">
+										<i class = "fas fa-plus-square"></i>
+									</a>
+								</div>
+							</td>
+							
+							<td>
+								<a class = "btn btn-small btn-danger" href = "#">Remove</a>
+							</td>					
+						</tr>
+						<%}
+					   }
+					%>
+					
 				</tbody>
 			</table>
 		</div>

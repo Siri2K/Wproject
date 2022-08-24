@@ -4,7 +4,8 @@ public class Product
 {
 	// Setup Instances
 	private int ID;
-	private String name,category,price,image;
+	private String name,category,image;
+	double price;
 	
 	// Setup Constructor
 	
@@ -13,7 +14,7 @@ public class Product
 		
 	}
 	
-	public Product(int iD, String name, String category, String price, String image) 
+	public Product(int iD, String name, String category, double price, String image) 
 	{
 		this.ID = iD;
 		this.name = name;
@@ -52,7 +53,7 @@ public class Product
 	/**
 	 * @return the price
 	 */
-	public String getPrice() 
+	public double getPrice() 
 	{
 		return price;
 	}
@@ -90,11 +91,11 @@ public class Product
 	}
 
 	/**
-	 * @param price the price to set
+	 * @param d the price to set
 	 */
-	public void setPrice(String price) 
+	public void setPrice(double d) 
 	{
-		this.price = price;
+		this.price = d;
 	}
 
 	/**
