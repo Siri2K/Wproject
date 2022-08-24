@@ -18,7 +18,7 @@
 				
 				<%-- Cart Button --%>
 				<li class = "nav-item">
-					<a class = "nav-link" aria-current = "page" href = "#">Cart</a>
+					<a class = "nav-link" aria-current = "page" href = "cart.jsp">Cart</a>
 				</li>
 				
 				<%-- Setup Authorized User Buttons --%>

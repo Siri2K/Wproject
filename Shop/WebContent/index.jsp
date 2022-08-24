@@ -6,7 +6,7 @@
 <%@ page import = "shop.model.*" %>
 <%@ page import = "shop.dao.*" %>
 
-<%-- Setup Page  --%>
+<%-- Configure  Page  --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <% 
@@ -58,7 +58,7 @@
 								<h6 class = "category">Category : <%= p.getCategory() %></h6>
 								
 								<div class = "mt-3 d-flex justify-content-between">
-									<a href = "#" class = "btn btn-primary"> Add to cart</a>
+									<a href = "#" class = "btn btn-dark"> Add to cart</a>
 									<a href = "#" class = "btn btn-primary"> Buy now</a>
 								</div>
 							</div>
