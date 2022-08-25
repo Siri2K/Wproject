@@ -1,5 +1,6 @@
-<%-- Setup Java Imports --%>
-<%@ page import =  "java.util.List"%>
+<%-- Setup Page Imports from Java --%>
+<%@ page import= "java.util.ArrayList" %>
+<%@ page import= "java.util.List" %>
 
 <%-- Setup shop Imports --%>
 <%@ page import = "shop.connection.DbConnection" %>
@@ -21,7 +22,13 @@
 	ProductDao product_dao = new ProductDao(DbConnection.getConnection());
 	List<Product> products = product_dao.getAllProduct();
 	
+	// Get CartList from Session List
+	ArrayList<Cart> cartlist = (ArrayList<Cart>) session.getAttribute("cart-list");
 	
+	if(cartlist !=null)
+	{
+		request.setAttribute("cart_list",cartlist);
+	}
 %>
 
 <!DOCTYPE html>
