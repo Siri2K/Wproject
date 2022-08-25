@@ -111,7 +111,7 @@
 								</form>	
 								</td>
 							<td>
-								<a class = "btn btn-small btn-danger" href = "#">Remove</a>
+								<a class = "btn btn-small btn-danger" href = "remove-from-cart?id=<%=c.getID()%>">Remove</a>
 							</td>					
 						</tr>
 						<%}
