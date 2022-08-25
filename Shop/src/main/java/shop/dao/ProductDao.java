@@ -97,9 +97,42 @@ public class ProductDao
 		catch(Exception e) 
 		{
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		return products;
+	}
+	
+	public double getTotalCartPrice(ArrayList<Cart> cartList) 
+	{
+		double total_price = 0;
+		
+		try 
+		{
+			if(cartList.size()>0) 
+			{
+				for(Cart item:cartList) 
+				{
+					query = "select price from product where ID=?";
+					prepared_statement = this.connect.prepareStatement(query);
+					prepared_statement.setInt(1, item.getID());
+					result_set = prepared_statement.executeQuery();
+					
+					while(result_set.next()) 
+					{
+						total_price+= result_set.getDouble("price")*item.getQuantity();
+					}
+				}
+			}
+			
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		
+		return total_price;
 	}
 
 }

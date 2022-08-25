@@ -25,7 +25,9 @@
 	{
 		ProductDao product_dao = new ProductDao(DbConnection.getConnection());
 		cartProduct = product_dao.getCartProduct(cartlist);
+		double total_price = product_dao.getTotalCartPrice(cartlist);
 		request.setAttribute("cart_list",cartlist);
+		request.setAttribute("total", total_price);
 	}
 %>
 
@@ -59,7 +61,7 @@
 		<%--Setup Cart Page --%>
 		<div class = "container">
 			<%-- Show Total Price of Items in cart --%>
-			<div class = "d-flex py-3 "><h3>Total Price = $1000</h3>
+			<div class = "d-flex py-3 "><h3>Total Price =$ ${(total>0)?total:0}</h3>
 			<a class = "mx-3 btn btn-primary" href = "#"> Check Out</a>
 			</div>
 			

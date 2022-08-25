@@ -1,6 +1,11 @@
-<%-- Setup Pages Imports --%>
+<%-- Setup Page Imports from Java --%>
+<%@ page import= "java.util.ArrayList" %>
+<%@ page import= "java.util.List" %>
+
+<%-- Setup Shop Imports --%>
 <%@ page import = "shop.connection.DbConnection" %>
-<%@ page import = "shop.model.User" %>
+<%@ page import = "shop.model.*" %>
+<%@ page import = "shop.dao.*" %>
 
 <%-- Configure Page --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -13,6 +18,14 @@
 	if(auth != null)
 	{
 		response.sendRedirect("index.jsp");
+	}
+	
+	// Get CartList from Session List
+	ArrayList<Cart> cartlist = (ArrayList<Cart>) session.getAttribute("cart-list");
+	
+	if(cartlist !=null)
+	{
+		request.setAttribute("cart_list",cartlist);
 	}
 %>
 

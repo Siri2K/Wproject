@@ -75,9 +75,7 @@ public class AddToCartServlet extends HttpServlet
 					cartList.add(cart);
 					response.sendRedirect("index.jsp");
 				}
-			}
-			
-			
+			}	
 		}
 		catch (Exception e) 
 		{
