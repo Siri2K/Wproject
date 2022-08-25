@@ -16,7 +16,6 @@ public class DbConnection
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop","root","DBA123");
-			System.out.println("Connected");
 		}
 		catch(Exception e)
 		{

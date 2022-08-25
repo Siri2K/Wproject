@@ -1,6 +1,7 @@
 <%-- Setup Page Imports from Java --%>
 <%@ page import= "java.util.ArrayList" %>
 <%@ page import= "java.util.List" %>
+<%@ page import= "java.text.DecimalFormat" %>
 
 <%-- Setup Page Imports from Shop --%>
 <%@ page import = "shop.connection.DbConnection" %>
@@ -10,6 +11,10 @@
 <%-- Configure Page --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <% 
+	// Setup Decimal Format
+	DecimalFormat dcf = new DecimalFormat("#.##");
+	request.setAttribute("dcf", dcf);
+
 	// Setup User
 	User auth = (User)request.getSession().getAttribute("auth");
 	if(auth != null)
@@ -61,7 +66,7 @@
 		<%--Setup Cart Page --%>
 		<div class = "container">
 			<%-- Show Total Price of Items in cart --%>
-			<div class = "d-flex py-3 "><h3>Total Price =$ ${(total>0)?total:0}</h3>
+			<div class = "d-flex py-3 "><h3>Total Price =$ ${(total>0)?dcf.format(total):0}</h3>
 			<a class = "mx-3 btn btn-primary" href = "#"> Check Out</a>
 			</div>
 			
@@ -85,27 +90,26 @@
 							<tr>
 							<td><%= c.getName() %></td>
 							<td><%= c.getCategory() %></td>
-							<td><%= c.getPrice() %></td>
+							<td>$<%= dcf.format(c.getPrice()) %> </td>
 							
 							<%-- Setup Buttons --%>
 							<td>
 								<form action = "" method = "post" class = "form-inline">
 									<input type = "hidden" name = "id" value = "<%= c.getID() %>" class = "form-input">
-								</form>
-								
-								<div class = "form-group d-flex justify-content-between">
-									<a class = "btn btn-sm btn-decre" href = "">
-										<i class = "fas fa-minus-square"></i>
-									</a>
 									
-									<input type="text" name="quantity" class="form-control" value="1" readonly>
-									
-									<a class = "btn btn-sm btn-incre" href = "#">
-										<i class = "fas fa-plus-square"></i>
-									</a>
-								</div>
-							</td>
-							
+									<div class = "form-group d-flex justify-content-between">
+										<a class = "btn btn-sm btn-decre" href = "quantity?action=dec&id=<%=c.getID() %>">
+											<i class = "fas fa-minus-square"></i>
+										</a>
+										
+										<input type="text" name="quantity" class="form-control" value="<%= c.getQuantity() %>" readonly>
+										
+										<a class = "btn btn-sm btn-incre" href = "quantity?action=inc&id=<%=c.getID()%>">
+											<i class = "fas fa-plus-square"></i>
+										</a>
+									</div>
+								</form>	
+								</td>
 							<td>
 								<a class = "btn btn-small btn-danger" href = "#">Remove</a>
 							</td>					
