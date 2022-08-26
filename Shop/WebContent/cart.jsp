@@ -94,19 +94,21 @@
 							
 							<%-- Setup Buttons --%>
 							<td>
-								<form action = "" method = "post" class = "form-inline">
+								<form action ="order-now" method = "post" class = "form-inline">
 									<input type = "hidden" name = "id" value = "<%= c.getID() %>" class = "form-input">
 									
-									<div class = "form-group d-flex justify-content-between">
+									<div class = "form-group d-flex justify-content-start w-100">
 										<a class = "btn btn-sm btn-decre" href = "quantity?action=dec&id=<%=c.getID() %>">
 											<i class = "fas fa-minus-square"></i>
 										</a>
-										
-										<input type="text" name="quantity" class="form-control" value="<%= c.getQuantity() %>" readonly>
+
+										<input type="text" name="quantity" class="form-control col-left w-50" value="<%= c.getQuantity() %>" readonly>
 										
 										<a class = "btn btn-sm btn-incre" href = "quantity?action=inc&id=<%=c.getID()%>">
 											<i class = "fas fa-plus-square"></i>
 										</a>
+										
+										<button type = "submit" class = "btn btn-primary btn-sm">Buy Now</button>
 									</div>
 								</form>	
 								</td>
