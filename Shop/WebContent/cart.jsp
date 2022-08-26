@@ -67,7 +67,7 @@
 		<div class = "container">
 			<%-- Show Total Price of Items in cart --%>
 			<div class = "d-flex py-3 "><h3>Total Price =$ ${(total>0)?dcf.format(total):0}</h3>
-			<a class = "mx-3 btn btn-primary" href = "#"> Check Out</a>
+			<a class = "mx-3 btn btn-primary" href = "cart-check-out"> Check Out</a>
 			</div>
 			
 			<%-- Make Table containing all purchased items --%>
