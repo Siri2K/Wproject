@@ -31,6 +31,18 @@ public class ProductDao
 		this.connect = connect;
 	}
 	
+	
+	// Setup a Getter Function
+	/**
+	 * @return the connect
+	 */
+	public Connection getConnect() 
+	{
+		return connect;
+	}
+
+
+
 	// Get All Products from database
 	public List<Product> getAllProduct() 
 	{
@@ -39,7 +51,7 @@ public class ProductDao
 		try 
 		{
 			query = "select * from product";
-			prepared_statement = this.connect.prepareStatement(query);
+			prepared_statement = this.getConnect().prepareStatement(query);
 			result_set = prepared_statement.executeQuery();
 			
 			// Check for new products
@@ -76,7 +88,7 @@ public class ProductDao
 				for(Cart item:cartList) 
 				{
 					query = "select * from product where ID=?";
-					prepared_statement = this.connect.prepareStatement(query);
+					prepared_statement = this.getConnect().prepareStatement(query);
 					prepared_statement.setInt(1, item.getID());
 					result_set = prepared_statement.executeQuery();
 					
@@ -114,7 +126,7 @@ public class ProductDao
 				for(Cart item:cartList) 
 				{
 					query = "select price from product where ID=?";
-					prepared_statement = this.connect.prepareStatement(query);
+					prepared_statement = this.getConnect().prepareStatement(query);
 					prepared_statement.setInt(1, item.getID());
 					result_set = prepared_statement.executeQuery();
 					
@@ -133,6 +145,37 @@ public class ProductDao
 		}
 		
 		return total_price;
+	}
+
+	public Product getSingleProduct(int productID) 
+	{
+		Product product = null;
+		
+		try
+		{
+			query = "select price from product where ID=?";
+			prepared_statement = this.getConnect().prepareStatement(query);
+			prepared_statement.setInt(1, productID);
+			result_set = prepared_statement.executeQuery();
+			
+			// Check for new products
+			while(result_set.next()) 
+			{
+				product = new Product();
+				product.setID(result_set.getInt("ID"));
+				product.setName(result_set.getString("name"));
+				product.setCategory(result_set.getString("category"));
+				product.setPrice(result_set.getDouble("price"));
+				product.setImage(result_set.getString("image"));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
+		
+		return product;
 	}
 
 }
