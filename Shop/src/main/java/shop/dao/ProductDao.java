@@ -147,35 +147,36 @@ public class ProductDao
 		return total_price;
 	}
 
-	public Product getSingleProduct(int productID) 
+
+
+	public Product getSingleProduct(int id) 
 	{
-		Product product = null;
+		Product product_row = null;
 		
-		try
+		try 
 		{
-			query = "select price from product where ID=?";
+			query = "select * from product where id=?";
 			prepared_statement = this.getConnect().prepareStatement(query);
-			prepared_statement.setInt(1, productID);
+			prepared_statement.setInt(1, id);
 			result_set = prepared_statement.executeQuery();
 			
-			// Check for new products
+			// Get values of product
 			while(result_set.next()) 
 			{
-				product = new Product();
-				product.setID(result_set.getInt("ID"));
-				product.setName(result_set.getString("name"));
-				product.setCategory(result_set.getString("category"));
-				product.setPrice(result_set.getDouble("price"));
-				product.setImage(result_set.getString("image"));
+				product_row = new Product();
+				product_row.setID(result_set.getInt("ID"));
+				product_row.setName(result_set.getString("name"));
+				product_row.setCategory(result_set.getString("category"));
+				product_row.setPrice(result_set.getDouble("price"));
+				product_row.setImage(result_set.getString("image"));
 			}
 		}
-		catch(Exception e)
+		catch(Exception e) 
 		{
 			e.printStackTrace();
 			System.out.print(e.getMessage());
 		}
-		
-		return product;
+		return product_row;
 	}
 
 }
