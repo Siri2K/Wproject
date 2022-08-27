@@ -12,23 +12,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%
+	//Setup Decimal Format
+	DecimalFormat dcf = new DecimalFormat("#.##");
+	request.setAttribute("dcf", dcf);
+	
 	//Setup User
 	User auth = (User)request.getSession().getAttribute("auth");
+	List<Order> orders = null;
 	if(auth != null)
 	{
 		request.setAttribute("auth", auth);
+		OrderDao orderDao = new OrderDao(DbConnection.getConnection());
+		orders = orderDao.userOrders(auth.getID());
 	}
 	else
 	{
-		//response.sendRedirect("login.jsp");
+		response.sendRedirect("login.jsp");
 	}
 	
 	// Get CartList from Session List
-	ArrayList<Cart> cartlist = (ArrayList<Cart>) session.getAttribute("cart-list");
+	ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
 	
-	if(cartlist !=null)
+	if(cart_list !=null)
 	{
-		request.setAttribute("cart_list",cartlist);
+		request.setAttribute("cart_list",cart_list);
 	}
 
 %>
@@ -38,21 +45,16 @@
 <html>
 
 <head>
-	<title>Welcome to Shop</title>
+	<title>Order Page</title>
 	<%@include file = "includes/header.jsp" %>
 </head>
 
 <body>
 	<%@include file = "includes/navbar.jsp" %>
 	
-	<%--Setup Cart Page --%>
-	<div class = "container">
-		<%-- Show Total Price of Items in cart --%>
-		<div class = "d-flex py-3 "><h3>All Orders</h3>
-		</div>
-		
-		<%-- Make Table containing all purchased items --%>
-		<table class = "table table-light">
+	<div class="container">
+		<div class="card-header my-3">All Orders</div>
+		<table class="table table-light">
 			<thead>
 				<tr>
 					<th scope="col">Date</th>
@@ -63,8 +65,28 @@
 					<th scope="col">Cancel</th>
 				</tr>
 			</thead>
-			
 			<tbody>
+				<%
+					if(orders != null)
+					{
+						for(Order o:orders)
+						{%>
+						<tr>
+							<td><%= o.getOrderDate() %></td>
+							<td><%= o.getName() %></td>
+							<td><%= o.getCategory() %></td>
+							<td><%= o.getOrderQuantity() %></td>
+							<td><%= o.getPrice() %></td>
+							
+							<%-- Setup Cancel Button --%>
+							<td>
+								<a class = "btn btn-small btn-danger" href = "cancel-order?id=<%=o.getOrderID()%>">Cancel</a>
+							</td>
+						</tr>
+						<%}
+					}
+				
+				%>
 			</tbody>
 		</table>
 	</div>

@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 //Setup Shop Imports
-import shop.model.Order;
-import shop.model.Product;
+import shop.model.*;
 
 public class OrderDao 
 {
@@ -46,7 +45,7 @@ public class OrderDao
 			query = "insert into shop.order (productID, userID, orderQuantity, orderDate) values(?,?,?,?)";
 			
 			// Prepare & Update Query 
-			prepared_statement = this.connect.prepareStatement(query);
+			prepared_statement = this.getConnect().prepareStatement(query);
 			prepared_statement.setInt(1, model.getID());
 			prepared_statement.setInt(2, model.getUserID());
 			prepared_statement.setInt(3,model.getOrderQuantity());
@@ -64,29 +63,28 @@ public class OrderDao
 		return result;
 	}
 	
-	
-	public List<Order> UserOrder(int id)
+	public List<Order> userOrders(int id)
 	{
-		List<Order> userList = new ArrayList<>();
+		List<Order> list = new ArrayList<>();
 		
 		try 
 		{
-			query = "select * from shop.order where userID=? order by order by shop.order.orderID desc";
-			prepared_statement = this.connect.prepareStatement(query);
-			prepared_statement.setInt(1, id);
+			query = "select * from shop.order where userID = ? order by orderID desc";
+			prepared_statement = this.getConnect().prepareStatement(query);
+			prepared_statement.setInt(1,id);
 			result_set = prepared_statement.executeQuery();
 			
-			// Check for new Orders
+			// Setup Other Orders
 			while(result_set.next()) 
 			{
 				Order order = new Order();
 				
-				// Obtain Product info from data base
-				ProductDao pDao = new ProductDao(this.getConnect());
+				// Setup Products
+				ProductDao productDao = new ProductDao(this.getConnect());
 				int productID = result_set.getInt("productID");
-				Product product = pDao.getSingleProduct(productID);
+				Product product = productDao.getSingleProduct(productID);
 				
-				// Setup Order Data
+				// Get Order Data
 				order.setOrderID(result_set.getInt("orderID"));
 				order.setID(productID);
 				order.setName(product.getName());
@@ -95,9 +93,9 @@ public class OrderDao
 				order.setOrderQuantity(result_set.getInt("orderQuantity"));
 				order.setOrderDate(result_set.getString("orderDate"));
 				
-				userList.add(order);
+				list.add(order);
+
 			}
-			
 		}
 		catch(Exception e) 
 		{
@@ -105,6 +103,23 @@ public class OrderDao
 			System.out.print(e.getMessage());
 		}
 		
-		return userList;
+		return list;
+	}
+
+	public void cancelOrder(int id)
+	{
+		try 
+		{
+			query = "delete from shop.order where orderID = ?";
+			prepared_statement = this.getConnect().prepareStatement(query);
+			prepared_statement.setInt(1,id);
+			prepared_statement.execute();
+			
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.print(e.getMessage());
+		}
 	}
 }

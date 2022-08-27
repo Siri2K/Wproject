@@ -32,7 +32,7 @@
 				{%>
 					<%-- Order Button --%>
 					<li class = "nav-item">
-						<a class = "nav-link" aria-current = "page" href = "#">Order</a>
+						<a class = "nav-link" aria-current = "page" href = "order.jsp">Order</a>
 					</li>
 					
 					<%-- Logout Button --%>
